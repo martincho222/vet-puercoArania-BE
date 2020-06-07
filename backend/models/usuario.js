@@ -9,6 +9,10 @@ const usuarioModelo= new Schema({
         type:String,
         required:true
     },
+    telefono:{
+        type:Number,
+        required:true
+    },
     email:{
         type:email
     },
@@ -23,9 +27,13 @@ const usuarioModelo= new Schema({
     password:{
         type:password
     },
+    mascotas:[{
+        type:Types,
+        ref:'producto'
+    }]
 });
 
-const Usuario=model('usuarios',usuarioModelo);
+const Usuario=model('usuario',usuarioModelo);
 
 module.exports=Usuario;
  
