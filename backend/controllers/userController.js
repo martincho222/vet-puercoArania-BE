@@ -4,12 +4,12 @@ const jwt = require('jsonwebtoken');
 const UserModel = require('../models/usuario');
 
 const UserController = {
-    listarUsuarios: async (req, res, next) => {
+    UserList: async (req, res, next) => {
         const users = await UserModel.find();
         return res.json(users)
     },
 
-    agregarUsuario: async (req, res, next) => {
+    createUser: async (req, res, next) => {
         const {username, email, password} = req.body;
         const user = await UserModel.findOne({$or: [{username}, {email}]});
         if(user){
