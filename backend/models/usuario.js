@@ -30,6 +30,10 @@ const usuarioModelo= new Schema({
         type: String,
         required:true
     },
+    direccion:[{
+        type: String,
+        ref:'producto'
+    }],
     mascotas:[{
         type: String,
         ref:'producto'
