@@ -7,6 +7,10 @@ const authenticateUser = require("../middlewares/authenticateUser");
 
 // Ruta Raiz
 router.get('/', (req, res, next) => res.send('Gestion de Usuarios'));
-router.use('/register', registerRoutes);
+router.use('/registro', registerRoutes);
 router.use('/login', loginRoutes);
 router.use('/private',authenticateUser, contentRoutes);
+router.use('/public', contentRoutes);
+
+
+module.exports = router;
