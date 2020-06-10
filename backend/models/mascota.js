@@ -6,7 +6,6 @@ const mascotaModelo= new Schema({
         required:true
     },
     especie:{
-<<<<<<< HEAD
         type:Types.ObjectId,
         required:true,
         ref:'especie'
@@ -15,14 +14,6 @@ const mascotaModelo= new Schema({
         type:Types.ObjectId,
         required:true,
         ref:'raza'
-=======
-        type: String,
-        required:true
-    },
-    raza:{
-        type: String,
-        required:true
->>>>>>> 219846a112aaf12374d27004e8903525e83b3297
     },
     tamanio:{
         type:String,
