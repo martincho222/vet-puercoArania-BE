@@ -1,18 +1,29 @@
 const {Schema, Types, model}=require ('mongoose');
 
 const productoModelo= new Schema({
-    codigo:{
-        type:Number,
+    nombre:{
+        type:String,
         required:true
     },
-    cantidad:{
-        type:Number,
+    detalle:{
+        type:String,
         required:true
     },
-    tipoProducto:[{
-        type:Types,
-        ref:'producto'
-    }]
+    url: {
+        type: String,
+        required: true
+    },
+    precio: {
+        type: String,
+        required: true
+    },
+    stock: {
+        type: String,
+        required: true
+    },
+    categoria: {
+        type: String,
+    }
 
 });
 
