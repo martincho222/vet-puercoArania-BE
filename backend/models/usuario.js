@@ -1,39 +1,46 @@
 const {Schema, Types, model}=require ('mongoose');
 
 const usuarioModelo= new Schema({
+    username: {
+        type: String,
+        required: true
+    },
     nombre:{
-        type:String,
-        required:true
+        type:String, 
     },
     apellido:{
         type:String,
-        required:true
     },
     telefono:{
         type:Number,
-        required:true
     },
     email:{
-        type:email
+        type: String,
+        required: true
     },
-    ciudad:{
+    pais:{
         type:String,
-        required:true
+
     },
     provincia:{
         type:String,
-        required:true
+
     },
     password:{
-        type:password
+        type: String,
+        required:true
     },
     mascotas:[{
-        type:Types,
+        type: String,
         ref:'producto'
-    }]
+    }],
+    role: {
+        type: String,
+        required: true
+    }
 });
 
-const Usuario=model('usuario',usuarioModelo);
+const Usuario= model('usuario',usuarioModelo);
 
-module.exports=Usuario;
+module.exports= Usuario;
  
