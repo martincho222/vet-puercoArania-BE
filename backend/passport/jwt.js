@@ -10,9 +10,9 @@ const config = {
 }
 const jwtStrategy = new JwtStrategy(config, async (jwt_payload, done) => {
     console.log(jwt_payload);
-    const usuario = await UserModel.findById(jwt_payload.sub);
+    const user = await UserModel.findById(jwt_payload.sub);
     if(!usuario) return done(null, false);
-    return done(null, usuario);
+    return done(null, user);
 } );
 
 module.exports = jwtStrategy;
