@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const jwt = require('jsonwebtoken');
-const UserModel = require('../models/usuario');
+const UserModel = require('../models/user');
 
 const UserController = {
     UserList: async (req, res, next) => {
