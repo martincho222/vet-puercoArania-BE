@@ -31,6 +31,12 @@ const petModel = new Schema({
     type: Types.ObjectId,
     ref: "user",
   },
+  query: [
+    {
+      type: String,
+      ref: "query",
+    },
+  ],
 });
 
 const Pet = model("pet", petModel);

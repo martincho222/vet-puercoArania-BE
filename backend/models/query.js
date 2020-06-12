@@ -13,8 +13,12 @@ const queryModel = new Schema({
   tel: {
     type: Number,
   },
-  query: {
+  querydecription: {
     type: String,
+    required: true,
+  },
+  pet: {
+    ref: "pet",
     required: true,
   },
 });
