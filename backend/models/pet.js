@@ -6,12 +6,12 @@ const petModel = new Schema({
     required: true,
   },
   species: {
-    type: Types.ObjectId,
-    ref: "species",
+    type: String,
+    required: true,
   },
   race: {
-    type: Types.ObjectId,
-    ref: "race",
+    type: String,
+    required: true,
   },
   size: {
     type: String,
