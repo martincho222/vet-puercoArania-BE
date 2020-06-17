@@ -1,50 +1,30 @@
-const mascotaModel = require("../models/mascota");
+const petModel = require("../models/pet");
 
 const mascotaController = {
-  listarMascotas: async (res, req, next) => {
-    try {
-      const mascotas = await mascotaModel.find();
-
-      const test = res.json(mascotas);
-      console.log(test)
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error 500: Internal server error" });
-    }
+  listarMascotas: async (req, res, next) => {
+      const pets = await petModel.find();
+      return res.json(pets);
   },
 
-  agregarMascota: async (res, req, next) => {
-    try {
-      const { idDuenio } = req.body;
+  agregarMascota: async (req, res, next) => {
+    try { 
+    
+      const { name, species, race, size, weigth, owner } = req.body;
 
-      if (!idDuenio) {
-        throw { message: "Error ID not found" };
-      }
-
-      const {
-        nombre,
-        especie,
-        raza,
-        tamanio,
-        peso,
-        consultas,
-        duenio
-      } = req.body;
-
-      const mascota = new mascotaModel({
-        nombre,
-        especie: especie._id,
-        raza: raza._id,
-        tamanio,
-        peso,
-        consultas,
-        duenio: duenio._id
+      const pet = new petModel({
+        name,
+        species,
+        race,
+        size,
+        weigth,
+        query: [],
+        owner
       });
+      console.log(pet)
+      const newPet = await pet.save();
 
-      const newMascota = await mascota.save();
-
-      duenio.mascotas.push(newMascota.toObject())
-      const resultado = await duenio.save();
+      owner.pets.push(newPet.toObject());
+      const resultado = await owner.save();
 
       return res.json(resultado);
     } catch (error) {
@@ -53,22 +33,10 @@ const mascotaController = {
     }
   },
 
-  buscarMascotaPorNombre: async (res, req, next) => {
+  buscarMascotaPorNombre: async (req, res, next) => {
     try {
-      const nombre = req.body;
-      const resultado = await mascotaModel.find({nombre: nombre});
-    
-      res.json(resultado);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error 500: Internal server error" });
-    }
-  },
-
-  buscarMascotaPorDuenio: async (res, req, next) => {
-    try {
-      const { idDuenio } = req.body
-      const resultado = mascotaModel.find({duenio: idDuenio});
+      const name = req.body;
+      const resultado = await petModel.find({ nombre: name });
 
       res.json(resultado);
     } catch (error) {
@@ -77,7 +45,19 @@ const mascotaController = {
     }
   },
 
-  actualizarMascota: async (res, req, next) => {
+  buscarMascotaPorDuenio: async (req, res, next) => {
+    try {
+      const { idDuenio: idOwner } = req.body;
+      const resultado = petModel.find({ owner: idOwner });
+
+      res.json(resultado);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error 500: Internal server error" });
+    }
+  },
+
+  actualizarMascota: async (req, res, next) => {
     try {
     } catch (error) {
       console.error(error);
@@ -85,11 +65,11 @@ const mascotaController = {
     }
   },
 
-  eliminarMascota: async (res, req, next) => {
+  eliminarMascota: async (req, res, next) => {
     try {
-        const { idMascota } = req.params;
-        const resultado = await mascotaModel.findByIdAndDelete({idMascota});
-        return res.json(resultado);
+      const { idMascota: idPet } = req.params;
+      const resultado = await petModel.findByIdAndDelete({ idMascota: idPet });
+      return res.json(resultado);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error 500: Internal server error" });
