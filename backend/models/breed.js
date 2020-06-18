@@ -1,16 +1,16 @@
 const { Schema, Types, model } = require("mongoose");
 
-const raceModel = new Schema({
+const breedModel = new Schema({
   name: {
     type: String,
     required: true,
   },
-  raceAnimal: {
+  breedAnimal: {
     type: Types.ObjectId,
     ref: "pet",
   },
 });
 
-const Race = model("race", raceModel);
+const Breed = model("breed", breedModel);
 
-module.exports = Race;
+module.exports = Breed;

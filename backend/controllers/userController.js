@@ -13,11 +13,9 @@ const UserController = {
     const { username, email, password } = req.body;
     const user = await UserModel.findOne({ $or: [{ username }, { email }] });
     if (user) {
-      res
-        .status(404)
-        .send({
-          error: `El usuario ${username} o el email ${email} ya se encuentra en uso`,
-        });
+      res.status(404).send({
+        error: `El usuario ${username} o el email ${email} ya se encuentra en uso`,
+      });
       return;
     }
     const newUser = new UserModel({
