@@ -4,7 +4,6 @@ const mascotaController = require('../controllers/mascota');
 const {
     listarMascotas,
     agregarMascota,
-    buscarMascotaPorNombre,
     buscarMascotaPorDuenio,
     actualizarMascota,
     eliminarMascota
@@ -12,12 +11,11 @@ const {
 
 router.route('/')
     .get(listarMascotas)
-    .get(buscarMascotaPorNombre)
     .post(agregarMascota)
     .put(actualizarMascota)
     .delete(eliminarMascota);
 
-router.route('/:idDuenio')
+router.route('/:idOwner')
     .get(buscarMascotaPorDuenio);
-    
+
 module.exports = router;

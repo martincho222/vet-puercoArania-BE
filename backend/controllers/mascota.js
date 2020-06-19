@@ -2,13 +2,12 @@ const petModel = require("../models/pet");
 
 const mascotaController = {
   listarMascotas: async (req, res, next) => {
-      const pets = await petModel.find();
-      return res.json(pets);
+    const pets = await petModel.find();
+    return res.json(pets);
   },
 
   agregarMascota: async (req, res, next) => {
-    try { 
-    
+    try {
       const { name, species, race, size, weigth, owner } = req.body;
 
       const pet = new petModel({
@@ -21,10 +20,7 @@ const mascotaController = {
         owner
       });
       console.log(pet)
-      const newPet = await pet.save();
-
-      owner.pets.push(newPet.toObject());
-      const resultado = await owner.save();
+      const resultado = await pet.save();
 
       return res.json(resultado);
     } catch (error) {
@@ -33,24 +29,11 @@ const mascotaController = {
     }
   },
 
-  buscarMascotaPorNombre: async (req, res, next) => {
-    try {
-      const name = req.body;
-      const resultado = await petModel.find({ nombre: name });
-
-      res.json(resultado);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error 500: Internal server error" });
-    }
-  },
-
   buscarMascotaPorDuenio: async (req, res, next) => {
     try {
-      const { idDuenio: idOwner } = req.body;
-      const resultado = petModel.find({ owner: idOwner });
-
-      res.json(resultado);
+      const { idOwner } = req.body;
+      const result = petModel.findOne({ owner: idOwner });
+      return res.json(result);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error 500: Internal server error" });
@@ -59,6 +42,9 @@ const mascotaController = {
 
   actualizarMascota: async (req, res, next) => {
     try {
+      const { idPet } = req.body;
+      const result = await petModel.findByIdAndUpdate(idPet, {...req.body});
+      return res.json(result)
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error 500: Internal server error" });
@@ -67,8 +53,8 @@ const mascotaController = {
 
   eliminarMascota: async (req, res, next) => {
     try {
-      const { idMascota: idPet } = req.params;
-      const resultado = await petModel.findByIdAndDelete({ idMascota: idPet });
+      const { idPet } = req.body;
+      const resultado = await petModel.findByIdAndDelete( idPet );
       return res.json(resultado);
     } catch (error) {
       console.error(error);
