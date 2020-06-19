@@ -31,7 +31,7 @@ const userModel = new Schema({
   pets: [
     {
       type: String,
-      ref: "pets",
+      ref: "pet",
     },
   ],
   role: {
