@@ -1,10 +1,9 @@
 const router = require('express').Router();
-const mascotaController = require('../controllers/mascota');
+const mascotaController = require('../controllers/petController');
 
 const {
     listarMascotas,
     agregarMascota,
-    buscarMascotaPorDuenio,
     actualizarMascota,
     eliminarMascota
 } = mascotaController
@@ -14,8 +13,5 @@ router.route('/')
     .post(agregarMascota)
     .put(actualizarMascota)
     .delete(eliminarMascota);
-
-router.route('/:idOwner')
-    .get(buscarMascotaPorDuenio);
 
 module.exports = router;

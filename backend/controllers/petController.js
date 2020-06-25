@@ -29,17 +29,6 @@ const mascotaController = {
     }
   },
 
-  buscarMascotaPorDuenio: async (req, res, next) => {
-    try {
-      const { idOwner } = req.body;
-      const result = petModel.findOne({ owner: idOwner });
-      return res.json(result);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error 500: Internal server error" });
-    }
-  },
-
   actualizarMascota: async (req, res, next) => {
     try {
       const { idPet } = req.body;

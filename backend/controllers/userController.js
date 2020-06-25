@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const UserModel = require('../models/user');
 
 const UserController = {
+
     UserList: async (req, res, next) => {
         const users = await UserModel.find();
         return res.json(users)
