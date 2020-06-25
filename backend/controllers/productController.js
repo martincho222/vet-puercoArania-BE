@@ -1,0 +1,42 @@
+const ProductModel = require("../models/product");
+
+const ProductController = {
+  productList: async (req, res) => {
+    const result = await ProductModel.find();
+    res.json(result);
+  },
+  productAdd: async (req, res) => {
+    const { name, brand, details, urlImage, price, stock, category } = req.body;
+    const product = new ProductModel({
+      name,
+      brand,
+      details,
+      urlImage,
+      price,
+      stock,
+      category,
+    });
+    const result = await product.save();
+    return res.json(result);
+  },
+  productSearchById: async (req, res) => {
+    const { id } = req.params;
+    const result = await ProductModel.findById(id);
+    res.json(result);
+  },
+
+  productUpdate: async (req, res) => {
+    const { id } = req.params;
+    const paramsToUpdate = { ...req.body };
+    console.log(paramsToUpdate);
+    const result = await ProductModel.findByIdAndUpdate(id, paramsToUpdate);
+    return res.json(result);
+  },
+  productRemove: async (req, res) => {
+    const { id } = req.params;
+    const result = await ProductModel.findByIdAndDelete(id);
+    return res.json(result);
+  },
+};
+
+module.exports = ProductController;

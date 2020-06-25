@@ -3,26 +3,35 @@ const { Schema, Types, model } = require("mongoose");
 const productModel = new Schema({
   name: {
     type: String,
+    unique: true,
+    required: true,
+  },
+  brand: {
+    type: String,
     required: true,
   },
   details: {
     type: String,
     required: true,
   },
-  url: {
+  urlImage: {
     type: String,
     required: true,
   },
   price: {
-    type: String,
+    type: Number,
     required: true,
   },
   stock: {
-    type: String,
-    required: true,
+    type: Number,
   },
   category: {
     type: String,
+    // enum: ["food", "accesory", "medicine"],
+  },
+  date: {
+    type: Date,
+    default: Date.now(),
   },
 });
 
