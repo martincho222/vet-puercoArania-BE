@@ -9,10 +9,10 @@ const config = {
     algorithms: [process.env.JWT_ALGORITHM]
 }
 const jwtStrategy = new JwtStrategy(config, async (jwt_payload, done) => {
-    console.log(jwt_payload);
-    const user = await UserModel.findById(jwt_payload.sub);
-    if(!usuario) return done(null, false);
-    return done(null, user);
+    // console.log(jwt_payload);
+    // const user = await UserModel.findById(jwt_payload.sub);
+    if(!jwt_payload) return done(null, false);
+    return done(null, jwt_payload);
 } );
 
 module.exports = jwtStrategy;
