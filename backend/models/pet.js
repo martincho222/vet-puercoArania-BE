@@ -17,11 +17,9 @@ const petModel = new Schema({
   },
   size: {
     type: String,
-    required: true,
   },
   weigth: {
     type: Number,
-    required: true,
   },
   querys: {
     type: String,

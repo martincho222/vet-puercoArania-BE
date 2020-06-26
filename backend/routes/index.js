@@ -16,7 +16,7 @@ router.use('/private',authenticateUser, contentRoutes);
 router.use('/private/list',authenticateUser, userRoutes);
 router.use("/product", productRoutes);
 // router.use("/publico", userRoutes);
-router.use("/turnos", appointmentRoutes)
+router.use("/private/turnos", appointmentRoutes)
 
 
 
