@@ -3,7 +3,7 @@ const { Schema, Types, model } = require("mongoose");
 const userModel = new Schema({
   username: {
     type: String,
-    required: true,
+    required: true
   },
   name: {
     type: String,
@@ -28,6 +28,9 @@ const userModel = new Schema({
     type: String,
     required: true,
   },
+  address:{
+    type: String,
+  },
   pets: [
     {
       type: String,
@@ -36,7 +39,6 @@ const userModel = new Schema({
   ],
   role: {
     type: String,
-    required: true,
   },
   cart: {
     type: Types.ObjectId,

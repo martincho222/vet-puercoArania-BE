@@ -8,19 +8,34 @@ const UserController = {
     const users = await UserModel.find();
     return res.json(users);
   },
+  userListById: async (req, res, next) => {
+    if (req.user.role !== "admin") {
+      return res.json({
+        message: "no tienes los permisos para realizar esta accion",
+      });
+    }
+    const { id } = req.params;
+    const user = await UserModel.findById(id);
+    if (user) {
+      res.json(user);
+    } else {
+      res.json({ message: "user not found" });
+    }
+  },
 
   createUser: async (req, res, next) => {
     const { username, email, password } = req.body;
     const user = await UserModel.findOne({ $or: [{ username }, { email }] });
     if (user) {
-      res.status(404).send({
-        error: `El usuario ${username} o el email ${email} ya se encuentra en uso`,
-      });
+      res
+        .status(404)
+        .send({
+          error: `El usuario ${username} o el email ${email} ya se encuentra en uso`,
+        });
       return;
     }
     const newUser = new UserModel({
-      username,
-      email,
+      ...req.body,
       role: "user",
       password: bcrypt.hashSync(password, parseInt(process.env.BCRYPT_ROUNDS)),
     });
@@ -45,7 +60,7 @@ const UserController = {
       const payload = {
         sub: user._id,
         role: user.role,
-        name: user.name,
+        name: user.nombre,
         exp: Date.now() + parseInt(process.env.JWT_LIFETIME),
       };
       // crear un token para el usuario [se alamcena en el frontend en localStorage]
@@ -54,6 +69,51 @@ const UserController = {
       });
       res.json({ token });
     })(req, res, next);
+  },
+  updateUser: async (req, res, next) => {
+    // const { id } = req.params;
+    const { role, _id, ...user } = req.body;
+    const paramsToUpdate = {
+      ...user,
+      password: bcrypt.hashSync(
+        req.body.password,
+        parseInt(process.env.BCRYPT_ROUNDS)
+      ),
+    };
+    try {
+      const response = await UserModel.findByIdAndUpdate(
+        req.user.sub,
+        paramsToUpdate
+      );
+      res.json({ message: "Datos Actualizados" });
+    } catch (error) {
+      res.json({ message: "user not found" });
+    }
+  },
+  updateUserAdmin: async (req, res, next) => {
+    if (req.user.role !== "admin") {
+      return res.json({
+        message: "no tienes los permisos para realizar esta accion",
+      });
+    }
+    const { id } = req.params;
+    const { role } = req.body;
+
+    try {
+      const response = await UserModel.findByIdAndUpdate(id, { role });
+      res.json({ message: "Success" });
+    } catch (error) {
+      res.json({ message: "not found" });
+    }
+  },
+  deleteUser: async (req, res, next) => {
+    const { id } = req.params;
+    const response = await UserModel.findByIdAndDelete(id);
+    if (response) {
+      res.json({ message: "usuario eliminado" });
+    } else {
+      res.json({ message: "user not found" });
+    }
   },
 };
 
