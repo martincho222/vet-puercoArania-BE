@@ -38,6 +38,10 @@ const userModel = new Schema({
     type: String,
     required: true,
   },
+  cart: {
+    type: Types.ObjectId,
+    ref: "cart",
+  },
 });
 
 const User = model("user", userModel);

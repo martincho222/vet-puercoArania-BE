@@ -6,7 +6,7 @@ const turnsModel = new Schema({
     required: true,
   },
   user: {
-    type: ObjectId,
+    type: String,
     required: true,
   },
   pet: {
@@ -18,7 +18,7 @@ const turnsModel = new Schema({
     required: true,
   },
   description: {
-    type: Date,
+    type: String,
     required: true,
   },
 });

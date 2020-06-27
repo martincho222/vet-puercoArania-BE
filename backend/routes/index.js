@@ -4,6 +4,7 @@ const loginRoutes = require("./login");
 const contentRoutes = require("./content");
 const authenticateUser = require("../middlewares/authenticateUser");
 const productRoutes = require("./product");
+const shoppingCartRoutes = require("./shoppingCart");
 
 // Ruta Raiz
 router.get("/", (req, res, next) => res.send("Gestion de Usuarios"));
@@ -12,5 +13,6 @@ router.use("/login", loginRoutes);
 router.use("/private", authenticateUser, contentRoutes);
 router.use("/public", contentRoutes);
 router.use("/product", productRoutes);
+router.use("/shoppingCart", shoppingCartRoutes);
 
 module.exports = router;
