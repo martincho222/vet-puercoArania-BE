@@ -40,6 +40,10 @@ const userModel = new Schema({
   role: {
     type: String,
   },
+  cart: {
+    type: Types.ObjectId,
+    ref: "cart",
+  },
 });
 
 const User = model("user", userModel);

@@ -33,6 +33,10 @@ const productModel = new Schema({
     type: Date,
     default: Date.now(),
   },
+  productCart: {
+    type: Types.ObjectId,
+    ref: "cart",
+  },
 });
 
 const Product = model("product", productModel);
