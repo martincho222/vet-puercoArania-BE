@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const UserModel = require('../models/user');
 
 const UserController = {
-
     UserList: async (req, res, next) => {
         const users = await UserModel.find();
         return res.json(users)
@@ -18,7 +17,7 @@ const UserController = {
         if(user){
             res.json(user);
         }else{
-            res.json({message: 'user not found'})
+            res.json({message: 'Usuario no encontrado'})
         }
     },
 
@@ -69,7 +68,7 @@ const UserController = {
             const response = await UserModel.findByIdAndUpdate(req.user.sub, paramsToUpdate);
             res.json({message: 'Datos Actualizados'})
         } catch (error) {
-            res.json({message: 'user not found'})
+            res.json({message: 'Usuario no encontrado'})
         }
     },
     updateUserAdmin: async (req, res, next) => {
@@ -81,9 +80,9 @@ const UserController = {
         
         try {
             const response = await UserModel.findByIdAndUpdate(id, {role})
-            res.json({message: 'Success'})
+            res.json({message: 'Modificado Existosamente'})
         } catch (error) {
-            res.json({message: 'not found'})
+            res.json({message: 'Usuario no encontrado'})
         }
     },
     deleteUser: async (req, res, next) => {
