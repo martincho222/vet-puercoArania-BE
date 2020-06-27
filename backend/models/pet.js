@@ -6,24 +6,18 @@ const petModel = new Schema({
     required: true,
   },
   species: {
-    type: Types.ObjectId,
+    type: String,
     required: true,
-    ref: "species",
   },
   race: {
-    type: Types.ObjectId,
+    type: String,
     required: true,
-    ref: "race",
   },
   size: {
     type: String,
   },
   weigth: {
     type: Number,
-  },
-  querys: {
-    type: String,
-    required: true,
   },
   owner: {
     type: Types.ObjectId,
