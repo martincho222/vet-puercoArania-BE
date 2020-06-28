@@ -10,7 +10,7 @@ const authenticateUser = require("../middlewares/authenticateUser");
 
 // Ruta Raiz
 router.get('/', (req, res, next) => res.send('Gestion de Usuarios'));
-router.use('/registro', registerRoutes);
+router.use('/register', registerRoutes);
 router.use('/login', loginRoutes);
 router.use('/public', contentRoutes);
 router.use('/mascota', mascotaRoutes);

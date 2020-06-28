@@ -8,6 +8,7 @@ const ProductController = {
   productAdd: async (req, res) => {
     const { name, brand, details, urlImage, price, stock, category } = req.body;
     const product = new ProductModel({
+      ...req.body,
       name,
       brand,
       details,

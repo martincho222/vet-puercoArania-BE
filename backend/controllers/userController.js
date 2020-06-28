@@ -31,8 +31,12 @@ const UserController = {
         const newUser = new UserModel({
             ...req.body, role: 'user', 
             password: bcrypt.hashSync(password, parseInt(process.env.BCRYPT_ROUNDS))});
-        const response = await newUser.save();
-        res.json(response);
+        try {
+            const response = await newUser.save();
+            res.json(response);
+        } catch (error) {
+            res.status(500).json({error: error.message})
+        }
     },
 
     autenticarUsuario: async (req, res, next) => {
