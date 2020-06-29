@@ -1,27 +1,21 @@
 const { Schema, Types, model } = require("mongoose");
 
-const appointmentModel = new Schema({
+const turnsModel = new Schema({
   service: {
     type: String,
     required: true,
   },
   user: {
     type: String,
-    // ref: 'user'
-    required: true
+    required: true,
   },
   pet: {
     type: String,
-    // ref: 'pet'
-    required: true
-  },
-  date: {
-    type: String,
     required: true,
   },
-  time:{
-    type: String,
-    required: true
+  date: {
+    type: Date,
+    required: true,
   },
   description: {
     type: String,
@@ -29,5 +23,5 @@ const appointmentModel = new Schema({
   },
 });
 
-const Appointment = model("appointment", appointmentModel);
-module.exports = Appointment;
+const Turns = model("turns", turnsModel);
+module.exports = Turns;

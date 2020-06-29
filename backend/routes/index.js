@@ -4,6 +4,7 @@ const loginRoutes = require("./login");
 const contentRoutes = require("./content");
 const userRoutes = require("./user");
 const productRoutes = require("./product");
+const shoppingCartRoutes = require("./shoppingCart");
 const mascotaRoutes = require("./mascota");
 const appointmentRoutes = require("./appointments");
 const authenticateUser = require("../middlewares/authenticateUser");
@@ -14,11 +15,11 @@ router.use('/register', registerRoutes);
 router.use('/login', loginRoutes);
 router.use('/public', contentRoutes);
 router.use('/mascota', mascotaRoutes);
-router.use('/private',authenticateUser, contentRoutes);
-router.use('/private/list',authenticateUser, userRoutes);
+router.use('/private', authenticateUser, userRoutes);
+router.use("/shoppingCart", authenticateUser, shoppingCartRoutes);
+// router.use('/private', authenticateAdmin, userRoutes);
 router.use("/product", productRoutes);
-// router.use("/publico", userRoutes);
-router.use("/private/turnos", appointmentRoutes)
+router.use("/turnos", appointmentRoutes)
 
 
 
