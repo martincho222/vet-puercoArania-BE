@@ -5,6 +5,7 @@ const cartSchema = new Schema({
     type: Types.ObjectId,
     ref: "user",
   },
+  
   items: [
     {
       product: {
@@ -18,5 +19,6 @@ const cartSchema = new Schema({
     },
   ],
 });
+
 const Cart = model("cart", cartSchema);
 module.exports = Cart;

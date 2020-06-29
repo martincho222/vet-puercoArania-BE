@@ -2,10 +2,18 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/user");
+
+
+
+
 const UserController = {
   UserList: async (req, res, next) => {
-    const users = await UserModel.find();
-    return res.json(users);
+    try {
+      const users = await UserModel.find();
+    return res.json({users});
+    } catch (error) {
+      res.status(500).send(error)
+    }
   },
   userListById: async (req, res, next) => {
     if (req.user.role !== "admin") {
@@ -63,7 +71,7 @@ const UserController = {
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         algorithm: process.env.JWT_ALGORITHM,
       });
-      res.json({ token });
+      res.json({ token, role: user.role });
     })(req, res, next);
   },
   updateUser: async (req, res, next) => {

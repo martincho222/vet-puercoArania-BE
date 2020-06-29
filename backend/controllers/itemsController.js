@@ -18,14 +18,8 @@ const itemsController = {
     const result = await cart.save();
     return res.json(result);
   },
-  removeItemCart: async (req, res) => {
-    const { idCart } = req.params;
-    const cart = await cartModel.findById(idCart);
-    const { userId, product, quantity } = req.body;
-    cart.items.pull({ userId, product, quantity });
-    const result = await cart.save();
-    return res.json(result);
-  },
+  
+  
 };
 
 module.exports = itemsController;
