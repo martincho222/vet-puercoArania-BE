@@ -18,8 +18,6 @@ const itemsController = {
     const result = await cart.save();
     return res.json(result);
   },
-  
-  
 };
 
 module.exports = itemsController;

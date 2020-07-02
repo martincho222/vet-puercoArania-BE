@@ -10,17 +10,16 @@ const appointmentRoutes = require("./appointments");
 const authenticateUser = require("../middlewares/authenticateUser");
 
 // Ruta Raiz
-router.get('/', (req, res, next) => res.send('Gestion de Usuarios'));
-router.use('/register', registerRoutes);
-router.use('/login', loginRoutes);
-router.use('/public', contentRoutes);
-router.use('/mascota', mascotaRoutes);
-router.use('/private', authenticateUser, userRoutes);
+router.get("/", (req, res, next) => res.send("Gestion de Usuarios"));
+router.use("/register", registerRoutes);
+router.use("/login", loginRoutes);
+router.use("/public", contentRoutes);
+router.use("/mascota", mascotaRoutes);
+router.use("/private", authenticateUser, userRoutes);
 router.use("/shoppingCart", authenticateUser, shoppingCartRoutes);
 // router.use('/private', authenticateAdmin, userRoutes);
 router.use("/product", productRoutes);
-router.use("/turnos", appointmentRoutes)
-// router.use('/sales')
+router.use("/turnos", authenticateUser, appointmentRoutes);
 
 
 
