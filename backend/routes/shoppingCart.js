@@ -5,25 +5,17 @@ const shoppingController = require("../controllers/shoppingCartController");
 const itemsController = require("../controllers/itemsController");
 
 const {
-  generateCart,
+  addToCart,
   listCart,
   searchCartById,
   toUpdateCart,
   removeCart,
-  //   adItemsCart,
+  removeItemCart,
 } = shoppingController;
 
-// const { adItemsCart } = itemsController;
-
-const { adItemsCart, listItemsCart, removeItemCart } = itemsController;
 //manejamos la ruta para procesar un pedido
-router.route("/").get(listCart).post(generateCart);
+router.route("/").get(listCart).post(addToCart).put(addToCart);
 
-router.route("/:id").get(searchCartById).put(toUpdateCart).delete(removeCart);
+router.route("/:id").get(searchCartById).delete(removeItemCart);
 
-router
-  .route("/:idCart/items")
-  .get(listItemsCart)
-  .post(adItemsCart)
-  .delete(removeItemCart);
 module.exports = router;

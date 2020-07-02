@@ -11,14 +11,14 @@ const authenticateUser = require("../middlewares/authenticateUser");
 
 // Ruta Raiz
 router.get("/", (req, res, next) => res.send("Gestion de Usuarios"));
-router.use("/registro", registerRoutes);
+router.use("/register", registerRoutes);
 router.use("/login", loginRoutes);
-router.use("/private", authenticateUser, contentRoutes);
-router.use("/product", productRoutes);
-router.use("/shoppingCart", shoppingCartRoutes);
 router.use("/public", contentRoutes);
 router.use("/mascota", mascotaRoutes);
-router.use("/private/list", authenticateUser, userRoutes);
-router.use("/private/turnos", appointmentRoutes);
+router.use("/private", authenticateUser, userRoutes);
+router.use("/shoppingCart", authenticateUser, shoppingCartRoutes);
+// router.use('/private', authenticateAdmin, userRoutes);
+router.use("/product", productRoutes);
+router.use("/turnos", authenticateUser, appointmentRoutes);
 
 module.exports = router;

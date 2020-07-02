@@ -2,10 +2,15 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/user");
+
 const UserController = {
   UserList: async (req, res, next) => {
-    const users = await UserModel.find();
-    return res.json(users);
+    try {
+      const users = await UserModel.find();
+      return res.json({ users });
+    } catch (error) {
+      res.status(500).send(error);
+    }
   },
   userListById: async (req, res, next) => {
     if (req.user.role !== "admin") {
@@ -25,11 +30,9 @@ const UserController = {
     const { username, email, password } = req.body;
     const user = await UserModel.findOne({ $or: [{ username }, { email }] });
     if (user) {
-      res
-        .status(404)
-        .send({
-          error: `El usuario ${username} o el email ${email} ya se encuentra en uso`,
-        });
+      res.status(404).send({
+        error: `El usuario ${username} o el email ${email} ya se encuentra en uso`,
+      });
       return;
     }
     const newUser = new UserModel({
@@ -56,14 +59,14 @@ const UserController = {
       const payload = {
         sub: user._id,
         role: user.role,
-        name: user.nombre,
+        name: user.name,
         exp: Date.now() + parseInt(process.env.JWT_LIFETIME),
       };
       // crear un token para el usuario [se alamcena en el frontend en localStorage]
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         algorithm: process.env.JWT_ALGORITHM,
       });
-      res.json({ token });
+      res.json({ token, role: user.role });
     })(req, res, next);
   },
   updateUser: async (req, res, next) => {

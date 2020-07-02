@@ -1,17 +1,35 @@
 const cartModel = require("../models/shoppingCart");
-const itemModels = require("../models/product");
+// const itemModels = require("../models/product");
 // const item = itemModels.name;
 
 const shoppingController = {
-  generateCart: async (req, res) => {
-    const { userId, product, quantity } = req.body; // aqui tiene que ir el usuario
-    const cart = new cartModel({
-      customer: userId,
-      items: [],
-    });
+  addToCart: async (req, res) => {
+    const { product, quantity } = req.body;
+    const cart = await cartModel.findOne({ customer: req.user.sub });
 
-    cart.items.push({ product, quantity });
-    const result = await cart.save();
+    if (cart) {
+      const found = cart.items.find((product) => {
+        product._id === product;
+      });
+      if (found) {
+        const cart = await cartModel
+          .findOne(
+            { customer: req.user.sub },
+            { $inc: { items: { quantity: quantity } } },
+            { safe: true }
+          )
+          .exec();
+        cart = await cartModel.findOne({ customer: req.user.sub });
+        return res.json(cart);
+      }
+      await cart.items.push({ product, quantity });
+      return res.json(cart);
+    }
+    const newCart = new cartModel({
+      customer: req.user.sub,
+      items: [{ product, quantity }],
+    });
+    const result = await newCart.save();
     return res.json(result);
   },
 
@@ -35,15 +53,15 @@ const shoppingController = {
     const result = await cartModel.findByIdAndDelete(id);
     return res.json(result);
   },
-  //   listItemsCart: async (req, res) => {
-  //     const { idCart } = req.params;
-  //     const cart = await (await cartModel.findById(idCart)).populate("product");
-  //     res.json({ product: cart.product });
-  //   },
-  //   addItemsCart: async (req, res) => {
-  //     const { userId, product } = req.body;
-  //     const itemCart = new cartModel({ customer: userId, product });
-  //   },
+  removeItemCart: async (req, res) => {
+    const { product } = req.body;
+    cartModel.update(
+      { customer: req.user.sub },
+      { $pull: { items: { product: product } } },
+      { safe: true }
+    );
+    return res.json(cartModel);
+  },
 };
 
 module.exports = shoppingController;

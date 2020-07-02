@@ -6,6 +6,7 @@ const express = require("express");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const cors = require('cors');
 
 //imports de archivos propios
 
@@ -26,10 +27,12 @@ const app = express();
 app.use(morgan("combined"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 app.use(passport.initialize());
 app.use("/api", routes);
+
 
 //inicializando aplicacion
 const port = process.env.PORT || 8080;
 
-app.listen(port, () => console.log("App Started on Port" + port));
+app.listen(port, () => console.log("App Started on Port " + port));

@@ -6,12 +6,14 @@ const appointmentModel = new Schema({
     required: true,
   },
   user: {
-    type: Types.ObjectId,
-    ref: 'user'
+    type: String,
+    // ref: 'user'
+    required: true
   },
   pet: {
-    type: Types.ObjectId,
-    ref: 'pet'
+    type: String,
+    // ref: 'pet'
+    required: true
   },
   date: {
     type: String,
