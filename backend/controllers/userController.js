@@ -64,7 +64,7 @@ const UserController = {
       const payload = {
         sub: user._id,
         role: user.role,
-        name: user.nombre,
+        name: user.name,
         exp: Date.now() + parseInt(process.env.JWT_LIFETIME),
       };
       // crear un token para el usuario [se alamcena en el frontend en localStorage]
@@ -104,6 +104,7 @@ const UserController = {
     const { role } = req.body;
     try {
       const response = await UserModel.findByIdAndUpdate(id, { role });
+      response.save()
       res.json({ message: "Modificado Existosamente" });
     } catch (error) {
       res.json({ message: "Usuario no encontrado" });

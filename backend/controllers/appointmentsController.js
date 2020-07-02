@@ -14,7 +14,7 @@ const TurnsController = {
         const { service, user, pet, date, time, description } = req.body;
         const appointment = await AppointmentModel.findOne({$or: [{date}, {time}]});
         if(appointment){
-            res.status(404).send({error: `El Turno ya esta ocupado`});
+            res.status(500).send({error: `El Turno ya esta ocupado`});
             return;
         }
         const newAppointment = new AppointmentModel({service, user, pet, date, time, description});

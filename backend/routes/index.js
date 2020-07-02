@@ -20,6 +20,7 @@ router.use("/shoppingCart", authenticateUser, shoppingCartRoutes);
 // router.use('/private', authenticateAdmin, userRoutes);
 router.use("/product", productRoutes);
 router.use("/turnos", appointmentRoutes)
+// router.use('/sales')
 
 
 

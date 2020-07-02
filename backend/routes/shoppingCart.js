@@ -18,10 +18,9 @@ const {
 router.route("/")
 .get(listCart)
 .post(addToCart)
-.put(addToCart);
 
-router.route("/:id")
-.get(searchCartById)
+router.route("/:product")
+// .get(searchCartById)
 .delete(removeItemCart);
 
 

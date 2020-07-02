@@ -7,9 +7,11 @@ const userModel = new Schema({
   },
   name: {
     type: String,
+    required: true,
   },
   lastname: {
     type: String,
+    required: true,
   },
   tel: {
     type: Number,
@@ -30,6 +32,12 @@ const userModel = new Schema({
   },
   address:{
     type: String,
+  },
+  city:{
+    type: String,
+  },
+  zip:{
+    type: Number,
   },
   pets: [
     {
