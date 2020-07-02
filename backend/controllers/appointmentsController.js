@@ -40,6 +40,7 @@ const TurnsController = {
         pet,
         date,
         time,
+        description,
         email: userDoc.email,
       };
       await sendMail(content);
