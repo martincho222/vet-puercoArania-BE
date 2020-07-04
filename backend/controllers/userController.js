@@ -4,6 +4,18 @@ const jwt = require("jsonwebtoken");
 const UserModel = require("../models/user");
 
 const UserController = {
+
+  getUser: async (req, res, next) => {
+    const id = req.user.sub;
+
+    const user = await UserModel.findById(id);
+    if (user) {
+      res.json(user);
+    } else {
+      res.json({ message: "Usuario no encontrado" });
+    }
+  },
+
   UserList: async (req, res, next) => {
     try {
       const users = await UserModel.find();
@@ -66,7 +78,7 @@ const UserController = {
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         algorithm: process.env.JWT_ALGORITHM,
       });
-      res.json({ token, role: user.role });
+      res.json({ token, role: user.role, id: user._id });
     })(req, res, next);
   },
   updateUser: async (req, res, next) => {
