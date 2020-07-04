@@ -3,16 +3,13 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/user");
 
-
-
-
 const UserController = {
   UserList: async (req, res, next) => {
     try {
       const users = await UserModel.find();
-    return res.json({users});
+      return res.json({ users });
     } catch (error) {
-      res.status(500).send(error)
+      res.status(500).send(error);
     }
   },
   userListById: async (req, res, next) => {
@@ -102,7 +99,7 @@ const UserController = {
     const { role } = req.body;
     try {
       const response = await UserModel.findByIdAndUpdate(id, { role });
-      response.save()
+      response.save();
       res.json({ message: "Modificado Existosamente" });
     } catch (error) {
       res.json({ message: "Usuario no encontrado" });

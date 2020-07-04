@@ -16,7 +16,6 @@ const mascotaController = {
         race,
         size,
         weigth,
-        query: [],
         owner
       });
       console.log(pet)

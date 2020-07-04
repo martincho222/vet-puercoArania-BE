@@ -10,18 +10,19 @@ const {
   searchCartById,
   toUpdateCart,
   removeCart,
-  removeItemCart
+  removeItemCart,
 } = shoppingController;
-
 
 //manejamos la ruta para procesar un pedido
 router.route("/")
 .get(listCart)
-.post(addToCart)
+.post(addToCart);
 
 router.route("/:product")
-// .get(searchCartById)
-.delete(removeItemCart);
-
+  // .get(searchCartById)
+  .delete(removeItemCart);
+  
+  router.route('/:id')
+  .delete(removeCart)
 
 module.exports = router;
