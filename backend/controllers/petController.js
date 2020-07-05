@@ -8,7 +8,7 @@ const mascotaController = {
 
   agregarMascota: async (req, res, next) => {
     try {
-      const { name, species, race, size, weigth, owner } = req.body;
+      const { name, species, race, size, weigth } = req.body;
 
       const pet = new petModel({
         name,
@@ -16,7 +16,7 @@ const mascotaController = {
         race,
         size,
         weigth,
-        owner
+        
       });
       console.log(pet)
       const resultado = await pet.save();
@@ -40,14 +40,21 @@ const mascotaController = {
   },
 
   eliminarMascota: async (req, res, next) => {
-    try {
-      const { idPet } = req.body;
-      const resultado = await petModel.findByIdAndDelete( idPet );
-      return res.json(resultado);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error 500: Internal server error" });
+    const { id } = req.params;
+    const resultado = await petModel.findByIdAndDelete( id );
+    console.log(resultado);
+    if (resultado){
+      res.json({mensaje: "paso por aqui"})
+    }else {
+      res.json({mensaje: "no se encontro pet"})
     }
+    
+    // try {
+    //   return res.json(resultado);
+    // } catch (error) {
+    //   console.error(error);
+    //   res.status(500).json({ message: "Error 500: Internal server error" });
+    // }
   },
 };
 

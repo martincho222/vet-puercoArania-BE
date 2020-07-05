@@ -8,8 +8,7 @@ const shoppingCartRoutes = require("./shoppingCart");
 const mascotaRoutes = require("./mascota");
 const appointmentRoutes = require("./appointments");
 const authenticateUser = require("../middlewares/authenticateUser");
-const checkoutRoutes = require("./checkout");
-const salesRoutes = require("./sales");
+const emailRoutes = require("./email");
 
 // Ruta Raiz
 router.get("/", (req, res, next) => res.send("Gestion de Usuarios"));
@@ -22,8 +21,8 @@ router.use("/shoppingCart", authenticateUser, shoppingCartRoutes);
 // router.use('/private', authenticateAdmin, userRoutes);
 router.use("/product", productRoutes);
 router.use("/turnos", authenticateUser, appointmentRoutes);
-router.use("/turnos", authenticateUser, appointmentRoutes);
 router.use("/checkout", authenticateUser, checkoutRoutes);
-router.use("/sales", authenticateUser, salesRoutes);
+// router.use("/sales", authenticateUser, salesRoutes);
+router.use("/email", emailRoutes);
 
 module.exports = router;
