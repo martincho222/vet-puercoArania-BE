@@ -2,12 +2,12 @@ require("dotenv").config();
 const nodemailer = require("nodemailer");
 
 const sendEmail = async (content) => {
-  const { user, service, pet, date, time, email } = content;
+  const { username, service, pet, date, time, email } = content;
   contentHTML = `
           <h1>Confirmación de Turno</h1>
 
 
-          <h2>Hola ${user}</h2>
+          <h2>Hola ${username}</h2>
           <ul>
           
           <li>El turno de <b>${service}</b> para tu Mascota ${pet} fue confirmado</li>
@@ -38,7 +38,7 @@ const sendEmail = async (content) => {
     subject: "confirmacion de Turno",
     html: contentHTML,
   };
-
+  console.log(mailOptions);
   transporter.sendMail(mailOptions, function (err, data) {
     if (err) {
       console.log(mailOptions);
