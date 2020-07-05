@@ -2,12 +2,12 @@ const AppointmentModel = require("../models/appointment");
 const sendMail = require("../controllers/emailController");
 const userModel = require("../models/user");
 const TurnsController = {
-  appointmentsListById: async (req, res, next) => {
-    const { id } = req.params;
-    const appointmentsById = await AppointmentModel.findById(id).populate(
+  userAppointments: async (req, res, next) => {
+    const userId = req.user.sub 
+    const userAppointments = await AppointmentModel.find({user:userId}).populate(
       "user"
     );
-    res.json(appointmentsById);
+    res.json(userAppointments);
   },
   appointmentsList: async (req, res, next) => {
     const appointments = await AppointmentModel.find();
@@ -40,6 +40,7 @@ const TurnsController = {
         pet,
         date,
         time,
+        description,
         email: userDoc.email,
       };
       await sendMail(content);
