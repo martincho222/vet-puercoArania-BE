@@ -6,6 +6,7 @@ const userRoutes = require("./user");
 const productRoutes = require("./product");
 const shoppingCartRoutes = require("./shoppingCart");
 const mascotaRoutes = require("./mascota");
+const checkoutRoutes = require("./checkout");
 const appointmentRoutes = require("./appointments");
 const authenticateUser = require("../middlewares/authenticateUser");
 const emailRoutes = require("./email");
@@ -21,6 +22,8 @@ router.use("/shoppingCart", authenticateUser, shoppingCartRoutes);
 // router.use('/private', authenticateAdmin, userRoutes);
 router.use("/product", productRoutes);
 router.use("/turnos", authenticateUser, appointmentRoutes);
+router.use("/checkout", authenticateUser, checkoutRoutes);
+// router.use("/sales", authenticateUser, salesRoutes);
 router.use("/email", emailRoutes);
 
 module.exports = router;

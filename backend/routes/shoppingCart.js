@@ -14,8 +14,13 @@ const {
 } = shoppingController;
 
 //manejamos la ruta para procesar un pedido
-router.route("/").get(listCart).post(addToCart).put(addToCart);
+router.route("/").get(listCart).post(addToCart);
 
-router.route("/:id").get(searchCartById).delete(removeItemCart);
+router
+  .route("/:product")
+  // .get(searchCartById)
+  .delete(removeItemCart);
+
+router.route("/:id").delete(removeCart);
 
 module.exports = router;

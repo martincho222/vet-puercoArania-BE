@@ -2,7 +2,6 @@ require("dotenv").config();
 const nodemailer = require("nodemailer");
 
 const sendEmail = async (content) => {
-
   const { user, service, pet, date, time, email, description } = content;
 
   contentHTML = `

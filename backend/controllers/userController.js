@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const UserModel = require("../models/user");
 
 const UserController = {
-
   getUser: async (req, res, next) => {
     const id = req.user.sub;
 
@@ -82,7 +81,6 @@ const UserController = {
     })(req, res, next);
   },
   updateUser: async (req, res, next) => {
-    // const { id } = req.params;
     const { role, _id, ...user } = req.body;
     const paramsToUpdate = {
       ...user,
@@ -111,6 +109,7 @@ const UserController = {
     const { role } = req.body;
     try {
       const response = await UserModel.findByIdAndUpdate(id, { role });
+      response.save();
       res.json({ message: "Modificado Existosamente" });
     } catch (error) {
       res.json({ message: "Usuario no encontrado" });

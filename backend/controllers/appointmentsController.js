@@ -3,10 +3,10 @@ const sendMail = require("../controllers/emailController");
 const userModel = require("../models/user");
 const TurnsController = {
   userAppointments: async (req, res, next) => {
-    const userId = req.user.sub 
-    const userAppointments = await AppointmentModel.find({user:userId}).populate(
-      "user"
-    );
+    const userId = req.user.sub;
+    const userAppointments = await AppointmentModel.find({
+      user: userId,
+    }).populate("user");
     res.json(userAppointments);
   },
   appointmentsList: async (req, res, next) => {

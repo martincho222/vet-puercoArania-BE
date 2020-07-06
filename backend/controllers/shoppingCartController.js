@@ -1,28 +1,41 @@
 const cartModel = require("../models/shoppingCart");
-// const itemModels = require("../models/product");
+const productModels = require("../models/product");
+var mongoose = require("mongoose");
+
 // const item = itemModels.name;
 
 const shoppingController = {
   addToCart: async (req, res) => {
     const { product, quantity } = req.body;
     const cart = await cartModel.findOne({ customer: req.user.sub });
-
+    console.log(cart);
     if (cart) {
-      const found = cart.items.find((product) => {
-        product._id === product;
+      const found = cart.items.find((item) => {
+        console.log(item.product.toString());
+        console.log(product);
+        return item.product.toString() === product;
       });
       if (found) {
-        const cart = await cartModel
-          .findOne(
-            { customer: req.user.sub },
-            { $inc: { items: { quantity: quantity } } },
-            { safe: true }
-          )
-          .exec();
-        cart = await cartModel.findOne({ customer: req.user.sub });
+        found.quantity += quantity * 1;
+        // const cart = await cartModel
+        //   .findOneAndUpdate(
+        //     { customer: req.user.sub },
+        //     { $inc: { items: { quantity: 1 } } },
+        //     { safe: true }
+        //   )
+        //   .exec();
+        // cart = await cartModel.findOne({ customer: req.user.sub });
+        cart.save();
         return res.json(cart);
       }
-      await cart.items.push({ product, quantity });
+      let newProduct = await productModels.findOne({ _id: product });
+      cart.items.push({ product: newProduct, quantity });
+      try {
+        cart.save();
+      } catch (error) {
+        console.error(error);
+      }
+
       return res.json(cart);
     }
     const newCart = new cartModel({
@@ -34,7 +47,10 @@ const shoppingController = {
   },
 
   listCart: async (req, res) => {
-    const result = await cartModel.find().populate("items");
+    const result = await cartModel
+      .findOne({ customer: req.user.sub })
+      .populate("items.product")
+      .populate("customer");
     return res.json(result);
   },
   searchCartById: async (req, res) => {
@@ -49,18 +65,22 @@ const shoppingController = {
     return res.json(result);
   },
   removeCart: async (req, res) => {
-    const { id } = req.params;
-    const result = await cartModel.findByIdAndDelete(id);
-    return res.json(result);
+    // const { id } = req.params;
+    const result = await cartModel.findOneAndDelete({ customer: req.user.sub });
+    if (result) {
+      res.json({ message: "carrito eliminado" });
+    }
+    res.json({ message: " carrito no encontrado" });
   },
   removeItemCart: async (req, res) => {
-    const { product } = req.body;
-    cartModel.update(
-      { customer: req.user.sub },
-      { $pull: { items: { product: product } } },
-      { safe: true }
-    );
-    return res.json(cartModel);
+    const { product } = req.params;
+    const cart = await cartModel
+      .update(
+        { customer: req.user.sub },
+        { $pull: { items: { product: product } } }
+      )
+      .exec();
+    return res.json(cart);
   },
 };
 
