@@ -22,6 +22,7 @@ router.use("/shoppingCart", authenticateUser, shoppingCartRoutes);
 router.use("/product", productRoutes);
 router.use("/turnos", authenticateUser, appointmentRoutes);
 router.use("/checkout", authenticateUser, checkoutRoutes);
+
 router.use("/email", emailRoutes);
 
 module.exports = router;
