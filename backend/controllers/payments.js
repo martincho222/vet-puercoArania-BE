@@ -67,7 +67,7 @@ const Payments = {
             product.stock -= quantity;
             await product.save();
           }
-          await cartModel.deleteOne({ _id: cart._id });
+          await cartModel.findOneAndDelete({ _id: cart._id });
         }
       }
       res.send({
