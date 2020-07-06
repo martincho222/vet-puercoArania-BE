@@ -1,30 +1,18 @@
 const cartModel = require("../models/shoppingCart");
 const productModels = require("../models/product");
-var mongoose = require("mongoose");
 
-// const item = itemModels.name;
 
 const shoppingController = {
   addToCart: async (req, res) => {
     const { product, quantity } = req.body;
     const cart = await cartModel.findOne({ customer: req.user.sub });
-    console.log(cart);
     if (cart) {
       const found = cart.items.find((item) => {
-        console.log(item.product.toString());
-        console.log(product);
+        
         return item.product.toString() === product;
       });
       if (found) {
         found.quantity += quantity * 1;
-        // const cart = await cartModel
-        //   .findOneAndUpdate(
-        //     { customer: req.user.sub },
-        //     { $inc: { items: { quantity: 1 } } },
-        //     { safe: true }
-        //   )
-        //   .exec();
-        // cart = await cartModel.findOne({ customer: req.user.sub });
         cart.save();
         return res.json(cart);
       }
@@ -65,7 +53,6 @@ const shoppingController = {
     return res.json(result);
   },
   removeCart: async (req, res) => {
-    // const { id } = req.params;
     const result = await cartModel.findOneAndDelete({ customer: req.user.sub });
     if (result) {
       res.json({ message: "carrito eliminado" });
@@ -85,3 +72,4 @@ const shoppingController = {
 };
 
 module.exports = shoppingController;
+

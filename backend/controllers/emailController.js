@@ -40,7 +40,6 @@ const sendEmail = async (content) => {
     subject: "confirmacion de Turno",
     html: contentHTML,
   };
-  console.log(mailOptions);
   transporter.sendMail(mailOptions, function (err, data) {
     if (err) {
       console.log(mailOptions);

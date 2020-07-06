@@ -57,8 +57,6 @@ const UserController = {
   autenticarUsuario: async (req, res, next) => {
     //passport local
     passport.authenticate("local", { sesion: false }, (error, user) => {
-      //callback una vez autenticado el usuario de manera local
-      // res.status(200).json({error, user})
       if (error) {
         return res.status(400).json({ error });
       }

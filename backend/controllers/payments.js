@@ -2,14 +2,14 @@ const mercadopago = require("mercadopago");
 const cartModel = require("../models/shoppingCart");
 const productModel = require("../models/product");
 const salesModel = require("../models/sales");
-// console.log(mercadopago)
+
 const Payments = {
   checkout: async (req, res, next) => {
     const cart = await cartModel
       .findOne({ customer: req.user.sub })
       .populate("items")
       .populate("items.product");
-    console.log(cart.items);
+
     const preferences = {
       items: [],
       back_urls: {
@@ -23,13 +23,13 @@ const Payments = {
       preferences.items.push({
         id: item.product._id,
         title: item.product.name,
-        // description: item.product.details,
+
         category_id: item.product.category,
         unit_price: item.product.price,
         quantity: item.quantity,
       });
     });
-    console.log(preferences);
+
     try {
       const payment = await mercadopago.preferences.create(preferences);
       return res.json({ redirectUrl: payment.body.init_point });
@@ -40,7 +40,7 @@ const Payments = {
   confirmPayment: async (req, res, next) => {
     const { collection_id } = req.body;
     try {
-      console.log(collection_id);
+
       const response = await mercadopago.payment.get(collection_id);
       const { status, transaction_details } = response.response;
 
@@ -68,7 +68,7 @@ const Payments = {
           });
           await newSale.save();
           for (const { product, quantity } of cart.items) {
-            // const p = await productModel.findById(product._id)
+
             product.stock -= quantity;
             await product.save();
           }
