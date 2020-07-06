@@ -75,7 +75,7 @@ const UserController = {
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         algorithm: process.env.JWT_ALGORITHM,
       });
-      res.json({ token, role: user.role, id: user._id });
+      return res.json({ token, role: user.role, id: user._id });
     })(req, res, next);
   },
   updateUser: async (req, res, next) => {

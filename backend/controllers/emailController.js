@@ -2,7 +2,7 @@ require("dotenv").config();
 const nodemailer = require("nodemailer");
 
 const sendEmail = async (content) => {
-  const { user, service, pet, date, time, email, description } = content;
+  const { username, service, pet, date, time, email, description } = content;
 
   contentHTML = `
           <h1>Confirmación de Turno</h1>

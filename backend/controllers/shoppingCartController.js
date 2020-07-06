@@ -21,7 +21,7 @@ const shoppingController = {
       try {
         cart.save();
       } catch (error) {
-        console.error(error);
+        console.error(error.message);
       }
 
       return res.json(cart);
