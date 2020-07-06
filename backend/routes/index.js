@@ -6,6 +6,7 @@ const userRoutes = require("./user");
 const productRoutes = require("./product");
 const shoppingCartRoutes = require("./shoppingCart");
 const mascotaRoutes = require("./mascota");
+const checkoutRoutes = require("./checkout");
 const appointmentRoutes = require("./appointments");
 const authenticateUser = require("../middlewares/authenticateUser");
 const emailRoutes = require("./email");

@@ -8,15 +8,15 @@ const shoppingController = {
   addToCart: async (req, res) => {
     const { product, quantity } = req.body;
     const cart = await cartModel.findOne({ customer: req.user.sub });
-    console.log(cart)
+    console.log(cart);
     if (cart) {
       const found = cart.items.find((item) => {
-        console.log(item.product.toString())
-        console.log(product)
+        console.log(item.product.toString());
+        console.log(product);
         return item.product.toString() === product;
       });
       if (found) {
-        found.quantity += quantity*1
+        found.quantity += quantity * 1;
         // const cart = await cartModel
         //   .findOneAndUpdate(
         //     { customer: req.user.sub },
@@ -66,11 +66,11 @@ const shoppingController = {
   },
   removeCart: async (req, res) => {
     // const { id } = req.params;
-    const result = await cartModel.findOneAndDelete({customer: req.user.sub})
-    if(result){
-      res.json({message: 'carrito eliminado'})
+    const result = await cartModel.findOneAndDelete({ customer: req.user.sub });
+    if (result) {
+      res.json({ message: "carrito eliminado" });
     }
-     res.json({message: ' carrito no encontrado'});
+    res.json({ message: " carrito no encontrado" });
   },
   removeItemCart: async (req, res) => {
     const { product } = req.params;

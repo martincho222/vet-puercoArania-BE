@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const UserModel = require("../models/user");
 
 const UserController = {
-
   getUser: async (req, res, next) => {
     const id = req.user.sub;
 
@@ -82,7 +81,6 @@ const UserController = {
     })(req, res, next);
   },
   updateUser: async (req, res, next) => {
-    // const { id } = req.params;
     const { role, _id, ...user } = req.body;
     const paramsToUpdate = {
       ...user,

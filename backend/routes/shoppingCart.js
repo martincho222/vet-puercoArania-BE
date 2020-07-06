@@ -14,15 +14,13 @@ const {
 } = shoppingController;
 
 //manejamos la ruta para procesar un pedido
-router.route("/")
-.get(listCart)
-.post(addToCart);
+router.route("/").get(listCart).post(addToCart);
 
-router.route("/:product")
+router
+  .route("/:product")
   // .get(searchCartById)
   .delete(removeItemCart);
-  
-  router.route('/:id')
-  .delete(removeCart)
+
+router.route("/:id").delete(removeCart);
 
 module.exports = router;

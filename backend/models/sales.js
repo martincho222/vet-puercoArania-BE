@@ -1,9 +1,12 @@
 const { Schema, Types, model } = require("mongoose");
 
 const SalesSchema = new Schema({
+  collection_id: {
+    type: String
+  },
   details: [
     {
-      detailProduct: {
+      productName: {
         type: String,
       },
       quantity: {
@@ -18,7 +21,7 @@ const SalesSchema = new Schema({
     },
   ],
 
-  state: {
+  status: {
     type: String,
   },
   totalPayment: {

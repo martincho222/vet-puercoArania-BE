@@ -3,7 +3,7 @@ const { Schema, Types, model } = require("mongoose");
 const userModel = new Schema({
   username: {
     type: String,
-    required: true
+    required: true,
   },
   name: {
     type: String,
@@ -30,13 +30,13 @@ const userModel = new Schema({
     type: String,
     required: true,
   },
-  address:{
+  address: {
     type: String,
   },
-  city:{
+  city: {
     type: String,
   },
-  zip:{
+  zip: {
     type: Number,
   },
   pets: [

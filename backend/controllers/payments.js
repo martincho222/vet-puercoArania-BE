@@ -1,6 +1,7 @@
 const mercadopago = require("mercadopago");
 const cartModel = require("../models/shoppingCart");
 const productModel = require("../models/product");
+const salesModel = require("../models/sales");
 // console.log(mercadopago)
 const Payments = {
   checkout: async (req, res, next) => {
@@ -8,7 +9,7 @@ const Payments = {
       .findOne({ customer: req.user.sub })
       .populate("items")
       .populate("items.product");
-      console.log(cart.items)
+    console.log(cart.items);
     const preferences = {
       items: [],
       back_urls: {
@@ -28,6 +29,7 @@ const Payments = {
         quantity: item.quantity,
       });
     });
+    console.log(preferences);
     try {
       const payment = await mercadopago.preferences.create(preferences);
       return res.json({ redirectUrl: payment.body.init_point });
@@ -38,11 +40,44 @@ const Payments = {
   confirmPayment: async (req, res, next) => {
     const { collection_id } = req.body;
     try {
-      console.log(collection_id)
+      console.log(collection_id);
       const response = await mercadopago.payment.get(collection_id);
+      const { status, transaction_details } = response.response;
+
+      if (status === "approved") {
+        const sale = await salesModel.findOne({ collection_id });
+        if (!sale) {
+          const cart = await cartModel
+            .findOne({ customer: req.user.sub })
+            .populate("items")
+            .populate("items.product");
+          const details = cart.items.map((item) => {
+            return {
+              id: item.product._id,
+              productName: item.product.name,
+              unitPrice: item.product.price,
+              quantity: item.quantity,
+              totalPrice: item.product.price * item.quantity,
+            };
+          });
+          const newSale = new salesModel({
+            collection_id,
+            details,
+            status,
+            totalPayment: transaction_details.total_paid_amount,
+          });
+          await newSale.save();
+          for (const { product, quantity } of cart.items) {
+            // const p = await productModel.findById(product._id)
+            product.stock -= quantity;
+            await product.save();
+          }
+          await cartModel.deleteOne({ _id: cart._id });
+        }
+      }
       res.send({
-        status: response.response.status,
-        transactionDetails: response.response.transaction_details
+        status,
+        transactionDetails: transaction_details,
       });
     } catch (error) {
       console.error(error);
