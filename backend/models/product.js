@@ -27,7 +27,6 @@ const productModel = new Schema({
   },
   category: {
     type: String,
-    // enum: ["food", "accesory", "medicine"],
   },
   date: {
     type: Date,

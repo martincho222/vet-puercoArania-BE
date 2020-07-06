@@ -29,7 +29,6 @@ const ProductController = {
   productUpdate: async (req, res) => {
     const { id } = req.params;
     const paramsToUpdate = { ...req.body };
-    console.log(paramsToUpdate);
     const result = await ProductModel.findByIdAndUpdate(id, paramsToUpdate);
     return res.json(result);
   },

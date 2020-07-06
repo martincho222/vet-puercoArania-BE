@@ -19,11 +19,9 @@ router.use("/public", contentRoutes);
 router.use("/mascota", mascotaRoutes);
 router.use("/private", authenticateUser, userRoutes);
 router.use("/shoppingCart", authenticateUser, shoppingCartRoutes);
-// router.use('/private', authenticateAdmin, userRoutes);
 router.use("/product", productRoutes);
 router.use("/turnos", authenticateUser, appointmentRoutes);
 router.use("/checkout", authenticateUser, checkoutRoutes);
-// router.use("/sales", authenticateUser, salesRoutes);
 router.use("/email", emailRoutes);
 
 module.exports = router;

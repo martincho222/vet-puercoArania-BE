@@ -16,7 +16,6 @@ const TurnsController = {
   createAppointments: async (req, res, next) => {
     const { service, pet, date, time, description } = req.body;
     const user = req.user.sub;
-    console.log(user);
     try {
       const appointment = await AppointmentModel.findOne({ date, time });
       if (appointment) {
@@ -33,7 +32,6 @@ const TurnsController = {
       });
       const response = await newAppointment.save();
       const userDoc = await userModel.findOne({ _id: user });
-      console.log(userDoc);
       const content = {
         user: userDoc.name,
         service,
@@ -46,7 +44,7 @@ const TurnsController = {
       await sendMail(content);
       res.json(response);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       res.status(402).json(error);
     }
   },
