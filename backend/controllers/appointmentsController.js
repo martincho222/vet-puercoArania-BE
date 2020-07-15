@@ -2,21 +2,42 @@ const AppointmentModel = require("../models/appointment");
 const sendMail = require("../controllers/emailController");
 const userModel = require("../models/user");
 const TurnsController = {
-  appointmentsListById: async (req, res, next) => {
-    const { id } = req.params;
-    const appointmentsById = await AppointmentModel.findById(id).populate(
-      "user"
-    );
-    res.json(appointmentsById);
+  userAppointments: async (req, res, next) => {
+    const userId = req.user.sub;
+    // console.log(userId);
+    const userAppointments = await AppointmentModel.find({
+      user: userId,
+    }).populate("user");
+    // const { service, pet, date, time, description } = userAppointments;
+    // console.log(appointment.service);
+    // const { service } = await AppointmentModel.find({
+    //   user: userId,
+    // }).populate("user");
+    // console.log(userAppointments);
+    // const { service } = userAppointments;
+    // console.log(service);
+    // const userDoc = await userModel.findOne({ _id: appointments.user });
+    // res.json(userAppointments);
+    const userDoc = await userModel.findOne({ _id: userId });
+    // const service = await userAppointments.service;
+    // console.log(userDoc.username);
+
+    const content = {
+      user: userDoc.username,
+      userAppointments: userAppointments,
+    };
+    // console.log(content);
+    res.json(content);
   },
   appointmentsList: async (req, res, next) => {
     const appointments = await AppointmentModel.find();
     return res.json(appointments);
+    // console.log(appointments);
   },
   createAppointments: async (req, res, next) => {
     const { service, pet, date, time, description } = req.body;
     const user = req.user.sub;
-    console.log(user);
+    // console.log(user);
     try {
       const appointment = await AppointmentModel.findOne({ date, time });
       if (appointment) {
@@ -33,13 +54,14 @@ const TurnsController = {
       });
       const response = await newAppointment.save();
       const userDoc = await userModel.findOne({ _id: user });
-      console.log(userDoc);
+      // console.log(userDoc.username);
       const content = {
-        user: userDoc.name,
+        user: userDoc.username,
         service,
         pet,
         date,
         time,
+        description,
         email: userDoc.email,
       };
       await sendMail(content);

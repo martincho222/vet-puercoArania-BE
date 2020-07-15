@@ -12,6 +12,9 @@ router.route('/')
     .get(listarMascotas)
     .post(agregarMascota)
     .put(actualizarMascota)
+    
+
+router.route('/:id')
     .delete(eliminarMascota);
 
 module.exports = router;

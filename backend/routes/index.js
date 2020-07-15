@@ -21,6 +21,6 @@ router.use("/shoppingCart", authenticateUser, shoppingCartRoutes);
 // router.use('/private', authenticateAdmin, userRoutes);
 router.use("/product", productRoutes);
 router.use("/turnos", authenticateUser, appointmentRoutes);
-router.use("/email", emailRoutes);
+router.use("/email", authenticateUser, emailRoutes);
 
 module.exports = router;
