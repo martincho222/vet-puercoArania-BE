@@ -18,6 +18,11 @@ router.route("/user/:id")
   .put(updateUserAdmin)
   .delete(deleteUser);
 
+router
+  .route("/user/:id")
+  .get(userListById)
+  .put(updateUserAdmin)
+  .delete(deleteUser);
 
 router.route("/userlogged").get(getUser);
 
