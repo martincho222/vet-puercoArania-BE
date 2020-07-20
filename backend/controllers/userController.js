@@ -16,8 +16,8 @@ const UserController = {
   },
 
   UserList: async (req, res, next) => {
+    const users = await UserModel.find();
     try {
-      const users = await UserModel.find();
       return res.json({ users });
     } catch (error) {
       res.status(500).send(error);
