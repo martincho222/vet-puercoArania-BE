@@ -13,6 +13,7 @@ Tambien cuenta con un ecommerce para poder realizar compras de medicamentos, ali
 ### `npm install`
 
 Instalar DevDependencies
+para monitorear cualquier cambio en el codigo y actualizar el servidor automaticamente
 ### `npm install nodemon`
 
 ## Iniciar el Proyecto
@@ -41,21 +42,28 @@ Base de Datos
 
 Datos de Variables de entorno
 PORT=8080
+
 MONGO_DB=mongodb+srv://martin:vet123654789@cluster0-iclp1.mongodb.net/veterinaria?retryWrites=true&w=majority
 
-# BCRYPT CONFIGURATION
+## BCRYPT CONFIGURATION
 BCRYPT_ROUNDS= 12
 
-#JWT CONFIGURATION
+## JWT CONFIGURATION
+
 JWT_LIFETIME=36000
+
 JWT_SECRET="Top Secret"
+
 JWT_ALGORITHM=HS256
 
-#EMAIL CONFIGURATION 
+## EMAIL CONFIGURATION 
+
 EMAIL=vet.puerco.arania@gmail.com 
+
 PASSWORD=srfgnywuibqwptnk
 
-#MERCADO PAGO
+## MERCADO PAGO
+
 MP_TOKEN=TEST-1859809724568806-070321-b98f2a761e7a328671bf10377e9d7e18-177174198
 
 ## Autores ✒️
