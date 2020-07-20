@@ -16,7 +16,6 @@ const mascotaController = {
         race,
         size,
         weigth,
-        
       });
       const resultado = await pet.save();
 
@@ -30,8 +29,8 @@ const mascotaController = {
   actualizarMascota: async (req, res, next) => {
     try {
       const { idPet } = req.body;
-      const result = await petModel.findByIdAndUpdate(idPet, {...req.body});
-      return res.json(result)
+      const result = await petModel.findByIdAndUpdate(idPet, { ...req.body });
+      return res.json(result);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error 500: Internal server error" });
