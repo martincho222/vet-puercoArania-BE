@@ -16,8 +16,8 @@ const UserController = {
   },
 
   UserList: async (req, res, next) => {
+    const users = await UserModel.find();
     try {
-      const users = await UserModel.find();
       return res.json({ users });
     } catch (error) {
       res.status(500).send(error);
@@ -75,7 +75,7 @@ const UserController = {
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         algorithm: process.env.JWT_ALGORITHM,
       });
-      res.json({ token, role: user.role, id: user._id });
+      return res.json({ token, role: user.role, id: user._id });
     })(req, res, next);
   },
   updateUser: async (req, res, next) => {

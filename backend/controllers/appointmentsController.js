@@ -1,6 +1,10 @@
 const AppointmentModel = require("../models/appointment");
 const sendMail = require("../controllers/emailController");
 const userModel = require("../models/user");
+
+
+
+
 const TurnsController = {
   userAppointments: async (req, res, next) => {
     const userId = req.user.sub;
@@ -11,7 +15,12 @@ const TurnsController = {
   },
   appointmentsList: async (req, res, next) => {
     const appointments = await AppointmentModel.find();
-    return res.json(appointments);
+    try {
+      
+      return res.json(appointments);
+    } catch (error) {
+      res.staty(400).send({message: error})
+    }
   },
   createAppointments: async (req, res, next) => {
     const { service, pet, date, time, description } = req.body;

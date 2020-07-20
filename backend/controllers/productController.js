@@ -28,9 +28,14 @@ const ProductController = {
 
   productUpdate: async (req, res) => {
     const { id } = req.params;
+    // const { price, stock } = req.body
     const paramsToUpdate = { ...req.body };
-    const result = await ProductModel.findByIdAndUpdate(id, paramsToUpdate);
+    try {
+      const result = await ProductModel.findByIdAndUpdate(id, paramsToUpdate);
     return res.json(result);
+    } catch (error) {
+      res.json(error)
+    }
   },
   productRemove: async (req, res) => {
     const { id } = req.params;

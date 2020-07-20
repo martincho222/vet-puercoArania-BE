@@ -7,7 +7,7 @@ const appointmentModel = new Schema({
   },
   user: {
     type: String,
-    // ref: 'user'
+    ref: 'user',
     required: true,
   },
   pet: {

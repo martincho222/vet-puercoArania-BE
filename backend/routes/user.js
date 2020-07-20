@@ -13,8 +13,7 @@ const {
 
 router.route("/user").get(UserList).post(createUser).put(updateUser);
 
-router
-  .route("/user/:id")
+router.route("/user/:id")
   .get(userListById)
   .put(updateUserAdmin)
   .delete(deleteUser);

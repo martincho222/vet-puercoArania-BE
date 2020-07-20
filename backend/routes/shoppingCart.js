@@ -18,7 +18,6 @@ router.route("/").get(listCart).post(addToCart);
 
 router
   .route("/:product")
-
   .delete(removeItemCart);
 
 router.route("/:id").delete(removeCart);
