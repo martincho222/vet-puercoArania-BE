@@ -68,9 +68,10 @@ const UserController = {
       const payload = {
         sub: user._id,
         role: user.role,
-        name: user.name,
+        name: user.username,
         exp: Date.now() + parseInt(process.env.JWT_LIFETIME),
       };
+      // console.log(payload);
       // crear un token para el usuario [se alamcena en el frontend en localStorage]
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
         algorithm: process.env.JWT_ALGORITHM,

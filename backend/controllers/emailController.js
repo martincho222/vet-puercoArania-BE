@@ -42,15 +42,15 @@ const sendEmail = async (content) => {
   };
   transporter.sendMail(mailOptions, function (err, data) {
     if (err) {
-      console.log(mailOptions);
+      // console.log(mailOptions);
       console.log("No se pudo enviar el Mail. Verifica la dirección de Correo");
       console.log(err);
     } else {
-      console.log(mailOptions);
+      // console.log(mailOptions);
       console.log("EMAIL ENVIADO");
     }
   });
-  console.log(contentHTML);
+  // console.log(contentHTML);
 };
 
 module.exports = sendEmail;

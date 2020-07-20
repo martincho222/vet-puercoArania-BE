@@ -42,7 +42,7 @@ const TurnsController = {
       const response = await newAppointment.save();
       const userDoc = await userModel.findOne({ _id: user });
       const content = {
-        user: userDoc.name,
+        user: userDoc.username,
         service,
         pet,
         date,
