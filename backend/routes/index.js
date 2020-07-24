@@ -16,7 +16,7 @@ router.get("/", (req, res, next) => res.send("Gestion de Usuarios"));
 router.use("/register", registerRoutes);
 router.use("/login", loginRoutes);
 router.use("/public", contentRoutes);
-router.use("/mascota", mascotaRoutes);
+router.use("/mascota", authenticateUser, mascotaRoutes);
 router.use("/private", authenticateUser, userRoutes);
 router.use("/shoppingCart", authenticateUser, shoppingCartRoutes);
 router.use("/product", productRoutes);
