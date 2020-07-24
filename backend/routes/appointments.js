@@ -15,7 +15,6 @@ router.route("/user").get(userAppointments);
 
 router
   .route("/:id")
-
   .put(updateAppointments)
   .delete(deleteAppointments);
 

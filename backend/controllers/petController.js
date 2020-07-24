@@ -2,15 +2,16 @@ const petModel = require("../models/pet");
 
 const mascotaController = {
   listarMascotas: async (req, res, next) => {
-    const pets = await petModel.find();
+    const pets = await petModel.find({owner: req.user.sub});
     return res.json(pets);
   },
 
   agregarMascota: async (req, res, next) => {
     try {
-      const { name, species, race, size, weigth } = req.body;
+      const { owner, name, species, race, size, weigth } = req.body;
 
       const pet = new petModel({
+        owner: req.user.sub,
         name,
         species,
         race,

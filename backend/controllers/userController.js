@@ -48,7 +48,7 @@ const UserController = {
     }
     const newUser = new UserModel({
       ...req.body,
-      role: "user",
+      role: "admin",
       password: bcrypt.hashSync(password, parseInt(process.env.BCRYPT_ROUNDS)),
     });
     const response = await newUser.save();
