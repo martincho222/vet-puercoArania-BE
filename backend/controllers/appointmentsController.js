@@ -10,7 +10,7 @@ const TurnsController = {
     const userId = req.user.sub;
     const userAppointments = await AppointmentModel.find({
       user: userId,
-    }).populate("user");
+    });
     res.json(userAppointments);
   },
   appointmentsList: async (req, res, next) => {
@@ -19,7 +19,7 @@ const TurnsController = {
       
       return res.json(appointments);
     } catch (error) {
-      res.staty(400).send({message: error})
+      res.status(400).send({message: error})
     }
   },
   createAppointments: async (req, res, next) => {
@@ -40,7 +40,8 @@ const TurnsController = {
         description,
       });
       const response = await newAppointment.save();
-      const userDoc = await userModel.findOne({ _id: user });
+      const userDoc = await userModel.findOne({ _id: user }).populate("_id");
+      console.log(userDoc);
       const content = {
         user: userDoc.username,
         service,

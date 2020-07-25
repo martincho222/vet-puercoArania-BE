@@ -12,7 +12,7 @@ const appointmentModel = new Schema({
   },
   pet: {
     type: String,
-    // ref: 'pet'
+    ref: 'pet',
     required: true,
   },
   date: {
@@ -21,7 +21,7 @@ const appointmentModel = new Schema({
   },
   time: {
     type: String,
-    required: true,
+    
   },
   description: {
     type: String,

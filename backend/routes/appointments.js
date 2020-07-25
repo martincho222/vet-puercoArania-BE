@@ -13,9 +13,6 @@ router.route("/").get(appointmentsList).post(createAppointments);
 
 router.route("/user").get(userAppointments);
 
-router
-  .route("/:id")
-  .put(updateAppointments)
-  .delete(deleteAppointments);
+router.route("/:id").put(updateAppointments).delete(deleteAppointments);
 
 module.exports = router;
