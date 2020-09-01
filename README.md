@@ -1,5 +1,5 @@
 # Veterinaria Puerco Araña
-Poryecto de una veterinaria, la cual el usuario tiene la posibilidad de realizar consultas online y sacar turnos para los distintos servicios que ofrece.
+Proyecto de una veterinaria, la cual el usuario tiene la posibilidad de realizar consultas online y sacar turnos para los distintos servicios que ofrece.
 Tambien cuenta con un ecommerce para poder realizar compras de medicamentos, alimentos y accesorios directamente desde tu domicilio, sin la necesidad de moverte del mismo.-
 
 ## Comenzando 🚀
@@ -40,34 +40,6 @@ Frameworks adicionales y otras implementaciones
 Base de Datos
 * [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) - Cloud 
 
-Datos de Variables de entorno
-
-## MONGO AND PORT CONFIGURATION
-
-PORT=8080
-
-MONGO_DB=mongodb+srv://martin:vet123654789@cluster0-iclp1.mongodb.net/veterinaria?retryWrites=true&w=majority
-
-## BCRYPT CONFIGURATION
-BCRYPT_ROUNDS= 12
-
-## JWT CONFIGURATION
-
-JWT_LIFETIME=36000
-
-JWT_SECRET="Top Secret"
-
-JWT_ALGORITHM=HS256
-
-## EMAIL CONFIGURATION 
-
-EMAIL=vet.puerco.arania@gmail.com 
-
-PASSWORD=srfgnywuibqwptnk
-
-## MERCADO PAGO
-
-MP_TOKEN=TEST-1859809724568806-070321-b98f2a761e7a328671bf10377e9d7e18-177174198
 
 ## Autores ✒️
 * **Diego Olmi** - *Desarrollo Front-End* - [Diegolmi](https://github.com/Diegolmi)
