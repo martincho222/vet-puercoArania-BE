@@ -12,6 +12,9 @@ Tambien cuenta con un ecommerce para poder realizar compras de medicamentos, ali
  una vez clonado el repositorio desde la consola correr los siguientes comandos para instalar las dependencias
 ### `npm install`
 
+ ## Agregar Variables de Entorno
+ copiar los datos de .example.env en .env
+
 Instalar DevDependencies
 para monitorear cualquier cambio en el codigo y actualizar el servidor automaticamente
 ### `npm install nodemon`
