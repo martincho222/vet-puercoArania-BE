@@ -10,6 +10,7 @@ const UserController = {
     const user = await UserModel.findById(id);
     if (user) {
       res.json(user);
+      console.log(user)
     } else {
       res.json({ message: "Usuario no encontrado" });
     }
@@ -63,7 +64,7 @@ const UserController = {
       if (!user) {
         return res
           .status(400)
-          .json({ message: "user not found or password incorrect" });
+          .json({ message: "usuario y/o contraseña incorrecta" });
       }
       const payload = {
         sub: user._id,

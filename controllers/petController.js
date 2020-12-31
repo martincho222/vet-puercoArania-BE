@@ -8,7 +8,7 @@ const mascotaController = {
 
   agregarMascota: async (req, res, next) => {
     try {
-      const { owner, name, species, race, size, weigth } = req.body;
+      const { name, species, race, size, weigth } = req.body;
 
       const pet = new petModel({
         owner: req.user.sub,
@@ -19,6 +19,7 @@ const mascotaController = {
         weigth,
       });
       const resultado = await pet.save();
+      console.log(resultado)
 
       return res.json(resultado);
     } catch (error) {

@@ -10,8 +10,11 @@ const config = {
 };
 const jwtStrategy = new JwtStrategy(config, async (jwt_payload, done) => {
 
-  if (!jwt_payload) return done(null, false);
-  return done(null, jwt_payload);
+  if (!jwt_payload){
+    return done(null, false);
+  }else {
+    return done(null, jwt_payload);
+  }
 });
 
 module.exports = jwtStrategy;
